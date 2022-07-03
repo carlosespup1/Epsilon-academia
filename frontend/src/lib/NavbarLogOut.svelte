@@ -13,7 +13,7 @@
 
 </script>
 
-<Navbar let:hidden let:toggle class="mt-2 rounded-lg">
+<Navbar let:hidden let:toggle class="mt-2 rounded-lg mb-8">
 	<NavBrand href="/">
 		<!--<img
 			src=""
