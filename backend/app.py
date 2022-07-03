@@ -1,1 +1,0 @@
-print('Epsilon academia backend')
