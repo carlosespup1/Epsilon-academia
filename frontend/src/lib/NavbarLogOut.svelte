@@ -4,7 +4,6 @@
 		NavBrand,
 		NavLi,
 		NavUl,
-		Button,
 		NavHamburger,
 		ColorShadowButton
 	} from 'flowbite-svelte';

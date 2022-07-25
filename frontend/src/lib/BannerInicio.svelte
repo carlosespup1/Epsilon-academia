@@ -1,6 +1,6 @@
-<script>
-	let bannerImagen1 = 'https://images.unsplash.com/photo-1599041125553-a3b967646ca5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=468&q=80';
-	let bannerImagen2 = 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=578&q=80';
+<script lang="ts">
+	let bannerImagen1: string = 'https://images.unsplash.com/photo-1599041125553-a3b967646ca5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=468&q=80';
+	let bannerImagen2: string = 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=578&q=80';
 </script>
 
 <section class="max-w-screen-2xl px-4 md:px-16 mx-auto">

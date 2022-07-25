@@ -1,8 +1,7 @@
 <script>
-	let cursos = 0;
-	let estudiantes = 0;
-	let profesores = 0;
-	let planes = 0;
+	let cursos = 3;
+	let estudiantes = 1;
+	let profesores = 2;
 </script>
 
 <div class="bg-white py-6 sm:py-8 lg:py-12">
