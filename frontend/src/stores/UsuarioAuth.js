@@ -2,6 +2,15 @@ import { writable} from "svelte/store";
 
 export const usuarioAuth = writable(false);
 export const usuarioRol = writable("");
+export const usuarioInfo = writable({});
 
-export let  totalCursos = writable(0);
-export const  totalAlumnos = writable(0);
+export let estadoLogin = false;
+export let informacion = {};
+
+usuarioAuth.subscribe(usuario => {
+    estadoLogin = usuario;
+});
+
+usuarioInfo.subscribe(usuario => {
+    informacion = usuario;
+});

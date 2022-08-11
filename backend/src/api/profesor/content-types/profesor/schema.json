@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "profesores",
+  "info": {
+    "singularName": "profesor",
+    "pluralName": "profesores",
+    "displayName": "Profesores"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre": {
+      "type": "string",
+      "required": true
+    },
+    "Profesion": {
+      "type": "string"
+    }
+  }
+}

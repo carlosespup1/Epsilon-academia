@@ -1,22 +1,22 @@
 <script>
     import axios from "axios";
-    import NavbarLogOut from "$lib/NavbarLogOut.svelte";
+    import Navbarestudiante from "$lib/Navbarestudiante.svelte";
     import Footer from "$lib/Footer.svelte";
-    import Curso from "$lib/Curso.svelte";
+    import CursoPremiun from "$lib/CursoPremiun.svelte";
 
     let informacionCurso = {}
 
-   const getCursos = async () => {
-       try {
-           const response = await axios.get("http://localhost:1337/api/cursos/");
-           return response.data.data;
-       } catch (error) {
-           return error;
-       }
-   }
-   let cursos = getCursos();
+    const getCursos = async () => {
+        try {
+            const response = await axios.get("http://localhost:1337/api/cursos/");
+            return response.data.data;
+        } catch (error) {
+            return error;
+        }
+    }
+    let cursos = getCursos();
 </script>
-<NavbarLogOut />
+<Navbarestudiante />
 <!-- Barra de busqueda para filtrar cursos -->
 <h1 class="text-center text-purple-700 text-xl uppercase font-semibold font-mono pb-3">¡Hecha un vistazo a todo lo que puedes aprender en Epsilon!</h1>
 <section class="w-full flex justify-center pb-10">
@@ -34,14 +34,14 @@
 <!-- Fin bloque-->
 {#await cursos}
     <p class="text-purple-700 text-center font-bold">Cargando cursos...</p>
-    {:then respuesta}
-        <div class="w-full flex flex-wrap justify-center items-center space-y-5">
-            {#each respuesta as curso}
-                <Curso Titulo={curso.attributes.Titulo}
-                       Descripcion={curso.attributes.Descripcion}
-                       Precio={curso.attributes.Precio}
-                       imagen={curso.attributes.imagen}/>
-            {/each}
-        </div>
+{:then respuesta}
+    <div class="w-full flex flex-wrap justify-center items-center space-y-5">
+        {#each respuesta as curso}
+            <CursoPremiun
+                    Titulo={curso.attributes.Titulo}
+                   Descripcion={curso.attributes.Descripcion}
+                   imagen={curso.attributes.imagen}/>
+        {/each}
+    </div>
 {/await}
 <Footer />

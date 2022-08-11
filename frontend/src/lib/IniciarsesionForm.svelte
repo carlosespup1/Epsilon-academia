@@ -1,4 +1,32 @@
-<script>
+<script lang="ts">
+	import axios from 'axios';
+	import { usuarioAuth, estadoLogin } from '../stores/UsuarioAuth.js';
+
+	let identifier: string = "";
+	let password: string = "";
+
+	let fallo: boolean = false;
+
+	const login = async () => {
+		axios.post('http://localhost:1337/api/auth/local', {
+			identifier,
+			password
+		}).then(res => {
+			if(res.data["jwt"]) {
+				usuarioAuth.set(true); //Cambiando el estado de login a true
+				console.log(estadoLogin)
+				let token: string = res.data['jwt'];
+				localStorage.setItem('token', token);
+
+				window.location.href = "/estudiante/";
+			}
+		}).catch(err => {
+			console.log(err);
+			fallo = true;
+			console.log(fallo);
+		});
+	}
+
 </script>
 
 <div class="bg-white py-6 sm:py-8 lg:py-12">
@@ -7,32 +35,30 @@
 			Iniciar sesión | EPSILON
 		</h2>
 
-		<form class="max-w-lg border rounded-lg mx-auto border-4">
+		<form on:submit|preventDefault={login} class="max-w-lg border rounded-lg mx-auto border-4">
 			<div class="flex flex-col gap-4 p-4 md:p-8">
 				<div>
-					<label for="email" class="inline-block text-gray-800 text-sm sm:text-base mb-2"
+					<label for="identifier" class="inline-block text-gray-800 text-sm sm:text-base mb-2"
 						>correo</label
 					>
 					<input
-						name="email"
+						name="identifier" bind:value="{identifier}" type="email"
 						class="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2"
 					/>
 				</div>
 
 				<div>
 					<label for="password" class="inline-block text-gray-800 text-sm sm:text-base mb-2"
-						>Contraseña</label
-					>
+						>Contraseña</label>
 					<input
-						name="password"
+						name="password" bind:value="{password}" type="password"
 						class="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2"
 					/>
 				</div>
 
-				<button
-					class="block bg-gray-800 hover:bg-gray-700 active:bg-gray-600 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
-					>Iniciar sesión</button
-				>
+				<button type="submit" class="block bg-gray-800 hover:bg-gray-700 active:bg-gray-600 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">
+					Iniciar sesión
+				</button>
 
 				<div class="flex justify-center items-center relative">
 					<span class="h-px bg-gray-300 absolute inset-x-0" />
@@ -81,6 +107,13 @@
 					>
 				</p>
 			</div>
+			{#if fallo}
+				<div class="flex justify-center items-center bg-red-100 p-4 mt-8">
+					<p class="text-red-500 text-sm text-center">
+						Contraseña o correo incorrectos
+					</p>
+				</div>
+			{/if}
 		</form>
 	</div>
 </div>

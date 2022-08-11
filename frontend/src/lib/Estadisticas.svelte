@@ -1,5 +1,5 @@
 <script>
-	let cursos = 3;
+	let cursos = 7;
 	let estudiantes = 1;
 	let profesores = 2;
 </script>
