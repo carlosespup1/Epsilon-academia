@@ -68,6 +68,26 @@
       "relation": "manyToOne",
       "target": "api::suscripcion.suscripcion",
       "inversedBy": "suscripciones"
+    },
+    "inscripciones": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::inscripcion.inscripcion",
+      "inversedBy": "usuarios"
+    },
+    "Ocupacion": {
+      "type": "string",
+      "required": true
+    },
+    "fotografia": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

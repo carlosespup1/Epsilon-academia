@@ -1,10 +1,21 @@
 <script>
     import axios from "axios";
+    import Swal from "sweetalert2";
     import Navbarestudiante from "$lib/Navbarestudiante.svelte";
     import Footer from "$lib/Footer.svelte";
-    import CursoPremiun from "$lib/CursoPremiun.svelte";
 
-    let informacionCurso = {}
+    import { informacion, valorPublico } from "../stores/UsuarioAuth.js"; //informacion estudiante
+
+
+     const getUserData = async () => {
+        const res = await axios.get(`http://localhost:1337/api/users/me?populate=%2A`, {
+            headers: {
+                Authorization: "Bearer " + valorPublico
+            }
+        });
+        console.log(JSON.stringify(res.data.suscripcion.Titulo));
+        return res.data.suscripcion.Titulo;
+    }
 
     const getCursos = async () => {
         try {
@@ -14,7 +25,46 @@
             return error;
         }
     }
+
+    // metodo para inscribirse en el curso
+    const inscribirse = async (idUsuario, idCurso) => {
+        let suscripcionUsuario = await getUserData();
+        if(suscripcionUsuario != 'Premiun') {
+            Swal.fire({
+                title: 'Upps!',
+                text: 'Parece que no tienes una suscripción activa',
+                icon: 'info',
+                footer: '<a href="/adquirir-plan">Ir a adquirir una suscripción</a>',
+                confirmButtonText: 'Ok'
+            })
+        } else {
+            try {
+                let response = await axios.post(`http://localhost:1337/api/inscripciones/`, {
+                    data: {
+                        usuarios: idUsuario,
+                        cursos: idCurso
+                    }
+                }).then(res => {
+                    console.log(res);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Lo hemos agregado a tu lista de cursos 😎',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                }).catch(e => {
+                    console.log(e);
+                })
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
+        }
+    }
+
     let cursos = getCursos();
+
 </script>
 <Navbarestudiante />
 <!-- Barra de busqueda para filtrar cursos -->
@@ -37,10 +87,18 @@
 {:then respuesta}
     <div class="w-full flex flex-wrap justify-center items-center space-y-5">
         {#each respuesta as curso}
-            <CursoPremiun
-                    Titulo={curso.attributes.Titulo}
-                   Descripcion={curso.attributes.Descripcion}
-                   imagen={curso.attributes.imagen}/>
+            <div class="max-w-full sm:max-w-xs mx-4 my-4 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+                <div class="px-4 py-2">
+                    <h1 class="text-3xl font-bold text-gray-800 uppercase dark:text-white">{curso.attributes.Titulo}</h1>
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{curso.attributes.Descripcion}</p>
+                </div>
+
+                <img class="object-cover w-full h-48 mt-2" src={curso.attributes.imagen} alt={curso.attributes.Titulo}/>
+
+                <div class="flex items-center justify-center w-full px-4 py-2 bg-gray-900">
+                        <button on:click|once={()=> inscribirse(informacion, curso.id)} class="px-2 py-2 text-xs font-semibold text-gray-900 uppercase transition-colors duration-200 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none">Inscribirse</button>
+                </div>
+            </div>
         {/each}
     </div>
 {/await}

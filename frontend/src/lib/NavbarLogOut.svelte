@@ -25,7 +25,7 @@
 	</NavBrand>
 	<div class="flex md:order-2">
 		<a href="/sesion">
-			<ColorShadowButton color="purple">Iniciar sesión</ColorShadowButton>
+			<ColorShadowButton color="purple">¡Comienza hoy mismo!</ColorShadowButton>
 		</a>
 		<NavHamburger on:click={toggle} />
 	</div>

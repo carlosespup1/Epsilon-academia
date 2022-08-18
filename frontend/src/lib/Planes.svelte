@@ -1,4 +1,5 @@
 <script>
+	import Swal from "sweetalert2";
 </script>
 
 <div class="bg-white pt-6 sm:py-8 lg:py-12">
@@ -89,7 +90,13 @@
 					<!-- feat - end -->
 				</ul>
 
-				<a
+				<a on:click={()=> Swal.fire({
+					  position: 'center',
+					  icon: 'success',
+					  title: 'Listo, se ha agregado tu nueva suscripción',
+					  showConfirmButton: false,
+					  timer: 1500
+					})}
 					href={"#"}
 					class="block bg-gray-500 hover:bg-gray-600 focus-visible:ring ring-indigo-300 text-gray-100 active:text-gray-300 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
 					>Obtener este plan</a
@@ -214,7 +221,13 @@
 					<!-- feat - end -->
 				</ul>
 
-				<a
+				<a on:click={()=> Swal.fire({
+					  position: 'center',
+					  icon: 'success',
+					  title: 'Listo, se ha agregado tu nueva suscripción',
+					  showConfirmButton: false,
+					  timer: 1500
+					})}
 					href={"#"}
 					class="block bg-indigo-200 bg-opacity-50 hover:bg-indigo-300 active:bg-indigo-400 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
 					>Obtener este plan</a

@@ -31,6 +31,15 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::profesor.profesor"
+    },
+    "inscripciones": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::inscripcion.inscripcion",
+      "inversedBy": "cursos"
+    },
+    "link": {
+      "type": "string"
     }
   }
 }

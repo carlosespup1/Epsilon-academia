@@ -1,6 +1,6 @@
 <script lang="ts">
 	import axios from 'axios';
-	import { usuarioAuth, estadoLogin } from '../stores/UsuarioAuth.js';
+	import { usuarioAuth, estadoLogin, tokenUsuario, usuarioInfo, informacion } from '../stores/UsuarioAuth.js';
 
 	let identifier: string = "";
 	let password: string = "";
@@ -12,11 +12,12 @@
 			identifier,
 			password
 		}).then(res => {
+			usuarioInfo.set(res.data['user'].id); // Guardamos el usuario en el store
 			if(res.data["jwt"]) {
 				usuarioAuth.set(true); //Cambiando el estado de login a true
-				console.log(estadoLogin)
+
 				let token: string = res.data['jwt'];
-				localStorage.setItem('token', token);
+				tokenUsuario.set(token); // Guardamos el token en el store
 
 				window.location.href = "/estudiante/";
 			}
@@ -101,10 +102,10 @@
 			<div class="flex justify-center items-center bg-gray-100 p-4">
 				<p class="text-gray-500 text-sm text-center">
 					¿Aún no tienes una cuenta? <a
-						href={'#'}
+						href='/registro'
 						class="text-indigo-500 hover:text-indigo-600 active:text-indigo-700 transition duration-100"
-						>Registrar</a
-					>
+						>Registrar</a>
+
 				</p>
 			</div>
 			{#if fallo}
